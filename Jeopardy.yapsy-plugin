@@ -1,0 +1,9 @@
+[Core]
+Name = Jeopardy Plugin
+Module = JeopardyPlugin
+
+[Documentation]
+Author = Tom Casavant
+Version = 0.1
+Website = http://www.tomcasavant.com
+Description = Plays a jeopardy game with users in the groupme
