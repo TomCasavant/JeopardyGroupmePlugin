@@ -68,7 +68,7 @@ class JeopardyPlugin(IPlugin):
     def similar(self, a, b):
         comp1 = a.replace(" ", "").replace("(","").replace(")","").lower()
         comp2 = b.replace(" ", "").replace("(","").replace(")","").lower()
-        return similar(comp1, comp2)
+        return SequenceMatcher(None, comp1, comp2).ratio()
 
     def add_score(self, name):
         file = open("score_to_add.s", "r")
