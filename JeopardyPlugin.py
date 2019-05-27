@@ -7,12 +7,12 @@ from difflib import SequenceMatcher
 class JeopardyPlugin(IPlugin):
     def process(self, msg, client):
         if ("!jeopardy" in msg['text']):
-            response = urlopen('http://jservice.io/api/random?count=1')
-            js = json.load(response)
             score = False
             question = False
             category = False
             while(not score or not question or not category):
+                response = urlopen('http://jservice.io/api/random?count=1')
+                js = json.load(response)
                 file = open("answer.txt", "w")
                 file.write(js[0]['answer'].replace("<i>","").replace("</i>",""))
                 file.close()
@@ -34,7 +34,7 @@ class JeopardyPlugin(IPlugin):
                 answer = file.read()
                 file.close()
                 if (answer != ""):
-                    if self.similar(msg['text'][8:], answer) >= .5:
+                    if self.similar(msg['text'][8:], answer) >= .55:
                         response = f"Correct! The answer was {answer}"
                         self.add_score(msg['name'])
                     else:
@@ -66,8 +66,8 @@ class JeopardyPlugin(IPlugin):
         return elem[1]
 
     def similar(self, a, b):
-        comp1 = a.replace(" ", "").replace("(","").replace(")","").lower()
-        comp2 = b.replace(" ", "").replace("(","").replace(")","").lower()
+        comp1 = a.replace("(","").replace(")","").lower()
+        comp2 = b.replace("(","").replace(")","").lower()
         return SequenceMatcher(None, comp1, comp2).ratio()
 
     def add_score(self, name):
